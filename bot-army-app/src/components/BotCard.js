@@ -1,35 +1,64 @@
-import React from 'react';
+import React from "react";
 
-const botClass = {
-    Support: "bot support",
-    Medic: "bot medic",
-    Assault: "bot assault",
-    Defender: "bot defender",
-    Captain: "bot captain",
-    Witch: "bot witch"
-  };
-  
-    
+const botTypeClasses = {
+  Assault: "icon military",
+  Defender: "icon shield",
+  Support: "icon plus circle",
+  Medic: "icon ambulance",
+  Witch: "icon magic",
+  Captain: "icon star",
+};
 
-function BotCard({bot, handleClick, handleDelete}) {
-    return (
-        <div className="column" >
-        <div className="card" key= {bot.id} onClick={() => handleClick(bot.id)}>
-            <div className="card-image">
-                <img className="card-img-top" src={bot.avatar_url} alt={bot.name} />
+function BotCard({ bot, botFunction }) {
+  return (
+    <div className="ui column">
+      <div
+        className="ui card"
+        key={bot.id}
+        onClick={() => botFunction(bot)}
+      >
+        <div className="image">
+          <img alt="oh no!" src={bot.avatar_url} />
+        </div>
+        <div className="content">
+          <div className="header">
+            {bot.name}
+            <i className={botTypeClasses[bot.bot_class]} />
+          </div>
+          <div className="meta text-wrap">
+            <small>{bot.catchphrase}</small>
+          </div>
+        </div>
+        <div className="extra content">
+          <span>
+            <i className="icon heartbeat" />
+            {bot.health}
+          </span>
+
+          <span>
+            <i className="icon lightning" />
+            {bot.damage}
+          </span>
+          <span>
+            <i className="icon shield" />
+            {bot.armor}
+          </span>
+          <span>
+            <div className="ui center aligned segment basic">
+              <button
+                className="ui mini red button"
+                onClick={() =>
+                  console.log("add code to connect event listener")
+                }
+              >
+                x
+              </button>
             </div>
-            <div className="card-body">
-                <div className='details'>
-                    <div className='header'>{bot.name}<i className={botClass[bot.bot_class]} />
-                    </div>
-                <h5 className="card-title">{bot.name}</h5>
-                <h6 className="card-subtitle mb-2 text-muted">{botClass[bot.class]}</h6>
-                <p className="card-text">{bot.description}</p>
-                <button className="btn btn-danger" onClick={handleDelete}>Delete</button>
-            </div>
+          </span>
         </div>
-        </div>
-        </div>
-    );
+      </div>
+    </div>
+  );
 }
- export default BotCard;
+
+export default BotCard;
